@@ -1,0 +1,121 @@
+Nithya Deepak and Nisha Bhatia
+Homework 9 Writeup
+
+1. What is the output from your system trained on simple.data on the following two sentences: 
+i loved it
+i thought i hated it but loved it
+With λ = 0. Include 1-2 sentences stating whether or not these seem reasonable.
+
+Our results were:
+i loved it - positive
+i thought i hated it but loved it  - positive
+
+These results seem reasonable. I loved it came out positive because loved appears more times in the positive label than the negative. For the second sentence, we ignore thought because it is not in our training data. Then we get the training data for just i hated it but loved it. Since loved and hated appear more times together in the positive dataset than in the negative data, it is no surprise that i thought i hated it but loved it becomes positive. 
+Looking at these sentences, we also agree with the results. I loved it is clearly positive, as there are no negative words in the context. I thought i hated it but loved it is also positive- it starts off negative but then turns into positive through the but, which turns the sentence to the positive.
+	
+2. Print out all of the probabilities for your model when you train on simple.data with λ = 0,
+specifically:
+- p(negative) and p(positive) - 1/2
+- p(∗|positive) and p(∗|negative) – both of these will be distributions over all words in the vocabulary
+
+i loved that movie	|	positive
+i thought i hated it but loved it	|	positive
+i loved that i hated it	|	negative
+i loved it	|	positive
+i hated it	|	negative
+i hated that i loved it	|	positive
+i hated that movie	|	negative
+
+
+3. What are the top 10 most predictive features for each label (positive and negative)? To
+determine this, calculate:
+p(xi|positive)/p(xi|negative)
+The largest values will be those most predictive for the positive label and the smallest values those most predictive for the negative label. Include 1-2 sentences stating whether or not these seem reasonable.
+TOP POSITIVE
+this	|	-1.8297514096698066
+great	|	-2.189145646735424
+my	|	-2.4274008972228978
+who	|	-2.602949627186285
+i'm	|	-3.18229968797283
+if	|	-2.643854614952548
+oh	|	-3.6805073405696964
+finally	|	-3.7782283612492944
+was	|	-3.798388593648842
+i'd	|	-3.8438243115889486
+
+TOP NEGATIVE
+this	|	-1.7997884137149156
+my	|	-2.5784563738345896
+if	|	-2.620780688556871
+who	|	-2.74686080422398
+great	|	-3.068166755862273
+i'm	|	-3.0811317330266403
+oh	|	-3.3887923075896347
+i'd	|	-3.5484931504571464
+was	|	-3.7498558574991936
+finally	|	-3.900675668568509
+
+p(xi|positive)/p(xi|negative)
+Value
+P(this|positive)/p(this|negative)
+1.01664807
+P(great|positive)/p(great|negative)
+0.7135028
+P(my|positive)/p(my|negative)
+0.94141631
+P(if|positive)/p(if|negative)
+1.008804
+P(who|positive)/p(who|negative)
+0.947609
+P(i’m|positive)/p(i’m|negative)
+1.03283467
+P(oh|positive)/p(oh|negative)
+1.086082
+P(i’d|positive)/p(i’d|negative)
+1.0832272
+P(was|positive)/p(was|negative)
+1.01294256
+P(finally|positive)/p(finally|negative)
+0.968608693
+
+These values are with lambda of 1. These values seem reasonable because the neutral words like I and was have a probability of around 1 which would be expected. The strong toned words like great are a bit odd because you would expect negative to have a higher probability on the positive side but it seems to be higher probability on the negative, showing that Naive Bayes model is not perfect. 
+
+4. Show the output from two sentences in each label category (4 total) from you system after training on the movie data. You should try and find one example each where it intuitively makes the correct decision and one where it intuitively makes the incorrect decision.
+
+i know we're not supposed to comment on other people's comments . but , damn , if lord of the waves honestly believes that one person did any kind of drugs because they saw the wizard of oz , he / she needs real help . | positive
+We are unsure why this sentence came out positive, we think it is because of the words not and help which in general can point to a negative label. However, there are several positive words here, so we think in this case the negative just outweigh the positive. 
+kirsten dunst sucks .	|	negative
+Even though kirsten dunst has a very low probability in both labels, sucks has a very strong negative connotation, which is why we think this sentence gets categorized correctly as negative. 
+why is it that movies set at high school nowadays have to be sick . besides the attractive female cheerleaders and a few eccentric cameos , the movie stinks . they combine very sick gags , profanity , disrespectful attitudes , fights and obscene gestures . easily one of the worst movies i've ever seen .	|	negative
+Given that there are words such as sick, stinks, disrespectful, fights, worst etc, it is no surprise that this sentence was categorized as negative.
+why do i think this is such a great movie ? i dunno . . i'm making this up as i go ; ) | negative
+This sentence came out as negative when it was supposed to be positive. We think this is because there are several strong negative words such as dunno and why. As a result, this sentence gets marked incorrectly as negative.
+5. Split the movies.data file into 80% train, 10% dev and 10% test and calculate:
+(a) The accuracy of your approach on the dev set for varied λ. Accuracy is the proportion
+of examples that the classifier got correct.
+
+Lambda
+Accuracy
+0.0
+71.2%
+0.01
+82.7%
+0.1
+84.9%
+1
+75.5%
+
+
+(b) The accuracy of your approach on the test set for the same set of λs
+
+Lambda
+Accuracy
+0.0
+68.3%
+0.01
+77.7%
+0.1
+81.3%
+1
+73.4%
+
